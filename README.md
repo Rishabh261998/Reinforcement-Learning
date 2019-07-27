@@ -15,6 +15,26 @@ a state **_S_**_t_ has the  _Markov_ property, if and only if;
 For a _Markov_ state **S** and successor state **S′**, the state transition probability function is defined by,
 ![](https://miro.medium.com/max/285/1*MttGDZm6XvBMDbJsrDzSIA.png)
 **MDP** is basically used to describe the agent and environment interaction in a formal way.
+**MDP** consists of a tuple of 5 elements:
+
+-   `S` : Set of states. At each time step the state of the environment is an element `s ∈ S`.
+-   `A`: Set of actions. At each time step the agent choses an action `a ∈ A` to perform.
+-   `p(s_{t+1} | s_t, a_t)` : State transition model that describes how the environment state changes when the user performs an action `a` depending on the action `a`and the current state **s**.
+-   `p(r_{t+1} | s_t, a_t)` : Reward model that describes the real-valued reward value that the agent receives from the environment after performing an action. In MDP the the reward value depends on the current state and the action performed.
+-   **𝛾** : discount factor that controls the importance of future rewards. We will describe it in more details later.
+
+The way by which the agent chooses which action to perform is named the agent `policy` which is a function that takes the current environment state to return an action. The policy is often denoted by the symbol 𝛑.
+
+Let’s now differentiate between two types environments.
+
+**Deterministic environment**: deterministic environment means that both state transition model and reward model are deterministic functions. If the agent while in a given state repeats a given action, it will always go the same next state and receive the same reward value.
+
+**Stochastic environment**: In a stochastic environment there is uncertainty about the actions effect. When the agent repeats doing the same action in a given state, the new state and received reward may not be the same each time. For example, a robot which tries to move forward but because of the imperfection in the robot operation or other factors in the environment (e.g. slippery floor), sometimes the action `forward` will make it move forward but in sometimes, it will move to `left` or `right.`
+
+Deterministic environments are easier to solve, because the agent knows how to plan its actions with no-uncertainty given the environment MDP. Possibly, the environment can be modeled in as a graph where each state is a node and edges represent transition actions from one state to another and edge weights are received rewards. Then, the agent can use a graph search algorithm such as A* to find the path with maximum total reward form the initial state.
+## Value function
+
+Many reinforcement learning introduce the notion of `**value-function**` which often denoted as `V(s)` . The value function represent how good is a state for an agent to be in. It is equal to expected total reward for an agent starting from state `s`. The value function depends on the policy by which the agent picks actions to perform.
 
 ## Value Iteration
 
@@ -39,6 +59,7 @@ where 𝛂 is the learning rate. The `Q(s,a)`table is initialized randomly. Then
 ## Mountain-Car v0:
 
 Trained the mountain-car environment on openai gym using q-learning.
+![enter image description here](Output/output_mcar.gif)
 ## Background
 
 OpenAI offers a toolkit for practicing and implementing Deep Q-Learning algorithms. ([http://gym.openai.com/](http://gym.openai.com/)) This is my implementation of the MountainCar-v0 environment. This environment has a small cart stuck in a trench. The cart needs to get to the flag on top of the crest to gain points and the faster it learns to do this, it gains more points. The cart can go left and right, with any variation of speed. Once the cart performs an action, the environment provides it a reward and tells it where the cart is at this point.
@@ -48,3 +69,6 @@ OpenAI offers a toolkit for practicing and implementing Deep Q-Learning algorith
 ## Conclusion:
 This was my first project on Reinforcement Learning. I am very thankful to my mentor- "Pawan Agarwal" who helped me throughout the course of my project and cleared my doubts.
 The MountainCar showed me how a complex learning algorithm in a continuous space could be developed through Deep Q Learning instead of arduous man hours by developers.
+## References:
+-   [Stanford CS234 Reinforcement Learning](http://web.stanford.edu/class/cs234/index.html?source=post_page---------------------------)
+-   [UC Berkley CS188 Introduction to AI](http://ai.berkeley.edu/course_schedule.html?source=post_page---------------------------)
